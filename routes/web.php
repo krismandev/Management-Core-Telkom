@@ -18,6 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::post('/login','AuthController@postLogin')->name('postLogin');
+Route::get('/logout','AuthController@logout')->name('logout');
 
 Route::group(['middleware' => ['auth','checkRole:1,2'],'prefix' => 'dashboard'], function(){
     Route::get('/','HomeController@index')->name('index');
