@@ -1,18 +1,18 @@
 @extends('layouts2.master')
 @section('breadcrumb')
-    <li><span>STO</span></li>
+    <li><span>STO - FTM OA</span></li>
 @endsection
-@section('title','STO')
+@section('title','FTM')
 @section('content')
 <div class="row">
     <div class="col-lg-12 mt-5">
         <div class="card">
             <div class="card-body">
 
-                <h4 class="header-title">Data STO</h4>
+                <h4 class="header-title">Data FTM OA - STO {{$sto->nama_sto}}</h4>
 
                 <div class="text-right">
-                    <button class="btn btn-primary" data-toggle="modal" data-target="#tambahsto">Tambah</button>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#tambahftm">Tambah</button>
                 </div>
                 <div class="single-table mt-3">
                     <div class="table-responsive">
@@ -20,24 +20,20 @@
                             <thead class="text-uppercase bg-dark">
                                 <tr class="text-white">
                                     <th scope="col">#</th>
-                                    <th scope="col">Nama STO</th>
-                                    <th scope="col">Alamat</th>
+                                    <th scope="col">Nama Rack FTM</th>
+                                    <th scope="col">No. Rack</th>
                                     <th scope="col">Aksi</th>
 
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($stos as $sto)
+                                @foreach ($ftms as $ftm)
                                 <tr>
                                     <th scope="row">{{$loop->iteration}}</th>
-                                    <td>{{$sto->nama_sto}}</td>
-                                    <td>{{$sto->alamat}}</td>
+                                    <td>{{$ftm->nama_ftm}}</td>
+                                    <td>{{$ftm->no_rak}}</td>
                                     <td>
-                                        <a href="#" class="btn btn-warning edit-sto" data-toggle="modal" data-target="#editsto" data-sto_id="{{$sto->id}}" data-nama_sto="{{$sto->nama_sto}}" data-alamat="{{$sto->alamat}}">Edit</a>
-                                        <a href="#" class="btn btn-danger hapus-sto" data-sto_id="{{$sto->id}}">Hapus</a>
-                                        <a href="{{route('getOlt',$sto->id)}}" class="btn btn-primary">OLT</a>
-                                        <a href="{{route('getFtmOa',$sto->id)}}" class="btn btn-primary">FTM</a>
-                                        {{-- <a href="{{route('testSto',$sto->id)}}" class="btn btn-primary">Buka</a> --}}
+                                        <a href="{{route('getPanelFtmOa',['sto_id'=>$sto->id,'ftm_oa_id'=>$ftm->id])}}" class="btn btn-primary">Buka</a>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -52,7 +48,7 @@
 @endsection
 
 @section('linkfooter')
-<div class="modal fade" id="tambahsto" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+<div class="modal fade" id="tambahftm" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -61,24 +57,24 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form class="" action="{{route('storeSTO')}}" method="post" enctype="multipart/form-data">
+        <form class="" action="{{route('storeFtmOa',$sto->id)}}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="modal-body">
                 <div class="row form-group">
                     <div class="col-md-12">
-                        <span>Nama STO</span>
+                        <span>Nama Rack</span>
                     </div>
                     <div class="col-md-12">
-                        <input type="text" name="nama_sto" value="" class="form-control" placeholder="Masukkan nama STO">
+                        <input type="text" name="nama_ftm" value="" class="form-control" placeholder="Masukkan Nama Rack FTM OA">
                     </div>
                 </div>
 
                 <div class="row form-group">
                     <div class="col-md-12">
-                        <span>Alamat</span>
+                        <span>No. Rack</span>
                     </div>
                     <div class="col-md-12">
-                        <textarea class="form-control" rows="4" name="alamat"></textarea>
+                        <input type="number" name="no_rak" value="" class="form-control" placeholder="Masukkan Nomor Rak">
                     </div>
                 </div>
             </div>
@@ -91,7 +87,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="editsto" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+<div class="modal fade" id="editftm" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -100,25 +96,24 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form class="" action="{{route('updateSTO')}}" method="post" enctype="multipart/form-data">
+        <form class="" action="{{route('updateFtmOa',$sto->id)}}" method="post" enctype="multipart/form-data">
             @csrf @method('PATCH')
             <div class="modal-body">
                 <div class="row form-group">
                     <div class="col-md-12">
-                        <span>Nama STO</span>
+                        <span>Nama Rack</span>
                     </div>
                     <div class="col-md-12">
-                        <input type="hidden" id="edit_sto_id" name="sto_id">
-                        <input type="text" name="nama_sto" id="edit_nama_sto" value="" class="form-control" placeholder="Masukkan nama STO Edit">
+                        <input type="text" name="nama_ftm" value="" class="form-control" placeholder="Masukkan Nama Rack FTM OA">
                     </div>
                 </div>
 
                 <div class="row form-group">
                     <div class="col-md-12">
-                        <span>Alamat</span>
+                        <span>No. Rack</span>
                     </div>
                     <div class="col-md-12">
-                        <textarea class="form-control" rows="4" name="alamat" id="edit_alamat"></textarea>
+                        <input type="number" name="no_rak" value="" class="form-control" placeholder="Masukkan Nomor Rak">
                     </div>
                 </div>
             </div>
@@ -133,20 +128,20 @@
 
 <script>
     $(document).ready(function () {
-        $(".edit-sto").click(function (e) {
+        $(".edit-ftm").click(function (e) {
             e.preventDefault();
-            const sto_id = $(this).data('sto_id')
-            const nama_sto = $(this).data('nama_sto')
+            const ftm_id = $(this).data('ftm_id')
+            const nama_ftm = $(this).data('nama_ftm')
             const alamat = $(this).data('alamat')
 
-            $("#edit_sto_id").val(sto_id);
-            $("#edit_nama_sto").val(nama_sto);
+            $("#edit_ftm_id").val(ftm_id);
+            $("#edit_nama_ftm").val(nama_ftm);
             $("#edit_alamat").html(alamat);
         });
     });
 
-    $('.hapus-sto').click(function(){
-			const sto_id = $(this).data('sto_id');
+    $('.hapus-ftm').click(function(){
+			const ftm_id = $(this).data('ftm_id');
 
             swal({
                 title: "Yakin?",
@@ -157,7 +152,7 @@
             })
             .then((willDelete) => {
                 if (willDelete) {
-                    window.location = "/dashboard/sto/delete/"+sto_id;
+                    window.location = "/dashboard/ftm/delete/"+ftm_id;
                 }
             });
 

@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Core;
 use App\CoreSplited;
 use App\Feeder;
+use App\FeederPanelFtmOa;
+use App\FtmOa;
 use App\Odc;
+use App\PanelFtmOa;
 use App\Sto;
 use Illuminate\Http\Request;
 
@@ -23,18 +26,41 @@ class FeederController extends Controller
         return view('feeder.feeder',compact(['feeders','stos']));
     }
 
+    public function getFeederFiltered($sto_id)
+    {
+        $feeders = Feeder::where('sto_id',$sto_id)->get();
+        $sto_selected = Sto::find($sto_id);
+        $stos = Sto::orderBy('nama_sto')->get();
+        $ftm_oas = FtmOa::where('sto_id',$sto_id)->get();
+        return view('feeder.feeder',compact(['feeders','stos','sto_selected','ftm_oas']));
+    }
+
     public function storeFeeder(Request $request)
     {
         $request->validate([
             'nama_feeder' => 'required',
-            'kapasitas' => 'required'
+            'kapasitas' => 'required',
+            'ftm_oa_id' => 'required',
+            'panel_ftm_oa' => 'required'
         ]);
 
+        $panel = PanelFtmOa::where('ftm_oa_id',$request->ftm_oa_id)->where('no_panel',$request->panel_ftm_oa)->first();
+
+        $jumlah_core_di_panel = $panel->core->count();
+        // dd($jumlah_core_di_panel);
         $feeder = Feeder::create([
             'nama_feeder' => $request->nama_feeder,
             'kapasitas' => $request->kapasitas,
-            'sto_id' => $request->sto_id
+            'sto_id' => $request->sto_id_value,
+            'ftm_oa_id' => $request->ftm_oa_id
         ]);
+
+        if ($feeder->kapasitas > 144) {
+            $feeder_panel = FeederPanelFtmOa::create([
+                'panel_ftm_oa_id' => $panel->id,
+                'feeder_id' => $feeder->id
+            ]);
+        }
 
         for ($i=1; $i <= $request->kapasitas; $i++) {
             $core = Core::create([

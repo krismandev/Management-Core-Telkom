@@ -30,10 +30,34 @@ Route::group(['middleware' => ['auth','checkRole:1,2'],'prefix' => 'dashboard'],
         Route::get('/delete/{id}','StoController@deleteSTO')->name('deleteSTO');
         // Route::get('/{id}','StoController@testSto')->name('testSto');
 
+
+        Route::group(['prefix'=>'olt'],function(){
+            Route::get('/{sto_id}','OltController@getOlt')->name('getOlt');
+            Route::post('/{sto_id}','OltController@storeOlt')->name('storeOlt');
+            Route::patch('/{sto_id}','OltController@updateOlt')->name('updateOlt');
+        });
+
+        Route::group(['prefix'=>'ftm'],function(){
+            Route::get('/{sto_id}','FtmOaController@getFtmOa')->name('getFtmOa');
+            Route::post('/{sto_id}','FtmOaController@storeFtmOa')->name('storeFtmOa');
+            Route::patch('/{sto_id}','FtmOaController@updateFtmOa')->name('updateFtmOa');
+
+
+            Route::group(['prefix'=>'panel'],function(){
+                Route::get('/{sto_id}/{ftm_oa_id}','PanelFtmOaController@getPanelFtmOa')->name('getPanelFtmOa');
+            });
+
+        });
+
+    });
+
+    Route::group(['prefix'=>'olt'],function(){
+        Route::get('/','OltController@getAllOLT')->name('getAllOlt');
     });
 
     Route::group(['prefix'=>'feeder'],function(){
         Route::get('/','FeederController@getFeeder')->name('getFeeder');
+        Route::get('/{sto_id}','FeederController@getFeederFiltered')->name('getFeederFiltered');
         Route::get('/{id}','FeederController@showFeeder')->name('showFeeder');
         Route::get('/{feeder_id}/odc/{odc_id}','FeederController@showFeederFiltered')->name('showFeederFiltered');
         Route::post('/','FeederController@storeFeeder')->name('storeFeeder');

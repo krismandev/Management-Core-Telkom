@@ -16,6 +16,9 @@ class CreateFeedersTable extends Migration
         Schema::create('feeders', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('sto_id');
+            $table->integer('ftm_oa_id');
+            // $table->integer('panel_ftm_oa_id_start');
+            // $table->integer('panel_ftm_oa_id_end');
             $table->string('nama_feeder');
             $table->integer('kapasitas');
             $table->tinyInteger('assign')->nullable();

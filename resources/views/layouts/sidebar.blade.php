@@ -62,6 +62,9 @@
                         <a class="nav-link" href="{{route('getSTO')}}" aria-expanded="false"><i class="fa fa-fw fa-rocket"></i>STO</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="{{route('getOLT')}}" aria-expanded="false"><i class="fa fa-fw fa-rocket"></i>OLT</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{route('getFeeder')}}" aria-expanded="false"><i class="fa fa-fw fa-rocket"></i>Feeder</a>
                     </li>
                     <li class="nav-item">

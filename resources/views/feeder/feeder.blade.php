@@ -13,7 +13,21 @@
                 <h4 class="header-title">Data Feeder</h4>
 
                 <div class="text-right">
-                    <button class="btn btn-primary" data-toggle="modal" data-target="#tambahfeeder">Tambah</button>
+                    @if(isset($sto_selected))
+                    <button class="btn btn-primary add-feeder" data-toggle="modal" data-target="#tambahfeeder" data-sto_id="{{$sto_selected->id}}">Tambah</button>
+                    @endif
+                    <div class="pull-right">
+                        <select name="sto_id" id="" class="form-control">
+                            @if(isset($sto_selected))
+                                <option value="{{$sto_selected->id}}" selected>{{$sto_selected->nama_sto}}</option>
+                            @else
+                                <option value="" selected>Pilih STO</option>
+                            @endif
+                            @foreach ($stos as $sto)
+                            <option value="{{$sto->id}}">{{$sto->nama_sto}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
                 <div class="single-table mt-3">
                     <div class="table-responsive">
@@ -79,20 +93,40 @@
                         <span>Nama Feeder</span>
                     </div>
                     <div class="col-md-12">
+                        <input type="hidden" name="sto_id_value" id="sto_id_value" value="">
                         <input type="text" name="nama_feeder" value="" class="form-control">
                     </div>
                 </div>
 
                 <div class="row form-group">
                     <div class="col-md-12">
-                        <span>STO</span>
+                        <span>Rak FTM</span>
                     </div>
                     <div class="col-md-12">
-                        <select name="sto_id" id="" class="form-control">
-                            <option value="">Pilih STO</option>
-                            @foreach ($stos as $sto)
-                                <option value="{{$sto->id}}">{{$sto->nama_sto}}</option>
+                        <select name="ftm_oa_id" id="" class="form-control" required>
+                            <option value="">Pilih Rak FTM-OA</option>
+                            @if(isset($sto_selected))
+                            @foreach ($ftm_oas as $ftom_oa)
+                                <option value="{{$ftom_oa->id}}">{{$ftom_oa->nama_ftm}}</option>
                             @endforeach
+                            @endif
+                        </select>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-12">
+                        <span>Panel FTM OA</span>
+                    </div>
+                    <div class="col-md-12">
+                        <select name="panel_ftm_oa" id="" class="form-control" required>
+                            <option value="">Pilih Panel</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
                         </select>
                     </div>
                 </div>
@@ -156,10 +190,15 @@
             $("#feeder_id_update").val(feeder_id);
             $("#nama_feeder_update").val(nama_feeder);
         });
-    });
 
-    $('.hapus-feeder').click(function(){
-			const feeder_id = $(this).data('feeder_id');
+        $(".add-feeder").click(function (e) {
+            e.preventDefault();
+            const sto_id = $(this).data('sto_id')
+            $("#sto_id_value").val(sto_id);
+        });
+
+        $('.hapus-feeder').click(function(){
+            const feeder_id = $(this).data('feeder_id');
 
             swal({
                 title: "Yakin?",
@@ -175,6 +214,15 @@
             });
 
 
-		});
+        });
+
+        $("select[name='sto_id']").change(function(e){
+            var sto_id = $(this).val();
+            var url = "/dashboard/feeder/"+sto_id;
+            window.location.href = url;
+        })
+    });
+
+
 </script>
 @endsection

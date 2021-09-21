@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCoresTable extends Migration
+class CreateSlotOltsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateCoresTable extends Migration
      */
     public function up()
     {
-        Schema::create('cores', function (Blueprint $table) {
+        Schema::create('slot_olts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('feeder_id');
-            $table->integer('panel_ftm_oa_id');
-            $table->integer('odc_id')->nullable();
-            $table->integer('no_core_feeder');
+            $table->integer('olt_id');
+            $table->integer('no_slot');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateCoresTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cores');
+        Schema::dropIfExists('slot_olts');
     }
 }

@@ -22,4 +22,9 @@ class Core extends Model
     {
         return $this->hasMany(Odp::class,'core_id','id');
     }
+
+    public function panel_ftm_oa()
+    {
+        return $this->belongsTo(PanelFtmOa::class);
+    }
 }
