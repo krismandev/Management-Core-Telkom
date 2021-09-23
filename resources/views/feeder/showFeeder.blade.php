@@ -401,7 +401,7 @@
                             <span>Latitude</span>
                         </div>
                         <div class="col-md-12">
-                            <input type="number" onkeypress="return isNumberKey(event)" name="lat" value="" class="form-control" required>
+                            <input type="text" onkeypress="return isNumberKey(event)" name="lat" value="" class="form-control" required>
                         </div>
                     </div>
                 </div>
