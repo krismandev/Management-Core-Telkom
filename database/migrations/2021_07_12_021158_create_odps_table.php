@@ -20,8 +20,8 @@ class CreateOdpsTable extends Migration
             $table->tinyInteger('no_odp')->nullable();
             $table->string('nama_frame_odp')->nullable();
             $table->string('nama_odp')->nullable();
-            $table->float('long')->nullable();
-            $table->float('lat')->nullable();
+            $table->string('long')->nullable();
+            $table->string('lat')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
         });

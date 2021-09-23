@@ -76,7 +76,7 @@
                         <span>Nama ODC</span>
                     </div>
                     <div class="col-md-12">
-                        <input type="text" name="nama_odc" value="" class="form-control">
+                        <input type="text" name="nama_odc" value="{{old('nama_odc')}}" class="form-control">
                     </div>
                 </div>
                 <div class="row form-group">
@@ -84,7 +84,7 @@
                         <span>Start Core</span>
                     </div>
                     <div class="col-md-12">
-                        <input type="number" name="start_core" value="" class="form-control">
+                        <input type="number" name="start_core" value="{{old('start_core')}}" class="form-control">
                     </div>
                 </div>
 
@@ -93,7 +93,7 @@
                         <span>End Core</span>
                     </div>
                     <div class="col-md-12">
-                        <input type="number" name="end_core" value="" class="form-control">
+                        <input type="number" name="end_core" value="{{old('end_core')}}" class="form-control">
                     </div>
                 </div>
 
@@ -102,7 +102,7 @@
                         <span>Feeder</span>
                     </div>
                     <div class="col-md-12">
-                        <select name="feeder_id" id="" class="form-control">
+                        <select name="feeder_id" id="" class="form-control" required>
                             <option value="">Pilih Feeder</option>
                             @foreach ($feeders as $feeder)
                                 <option value="{{$feeder->id}}">{{$feeder->nama_feeder}}</option>
@@ -115,7 +115,7 @@
                         <span>Kapasitas</span>
                     </div>
                     <div class="col-md-12">
-                        <input type="number" name="kapasitas" value="" class="form-control">
+                        <input type="number" name="kapasitas"  value="{{old('kapasitas')}}" class="form-control">
                     </div>
                 </div>
                 <div class="row form-group">
@@ -123,7 +123,7 @@
                         <span>Long</span>
                     </div>
                     <div class="col-md-12">
-                        <input type="number" name="long" value="" class="form-control">
+                        <input type="text" name="long" value="{{old('long')}}" class="form-control" onkeypress="return isNumberKey(event)">
                     </div>
                 </div>
                 <div class="row form-group">
@@ -131,7 +131,7 @@
                         <span>Lat</span>
                     </div>
                     <div class="col-md-12">
-                        <input type="number" name="lat" value="" class="form-control">
+                        <input type="text" name="lat" value="{{old('lat')}}" class="form-control" onkeypress="return isNumberKey(event)">
                     </div>
                 </div>
                 <div class="row form-group">
@@ -139,7 +139,7 @@
                         <span>Alamat</span>
                     </div>
                     <div class="col-md-12">
-                        <textarea class="form-control" rows="4" name="alamat"></textarea>
+                        <textarea class="form-control" rows="4" name="alamat">{{old('alamat')}}</textarea>
                     </div>
                 </div>
             </div>
@@ -204,6 +204,35 @@
             $("#edit_nama_odc").val(nama_odc);
             $("#edit_alamat").html(alamat);
         });
+
+        function setInputFilter(textbox, inputFilter) {
+            ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function(event) {
+                textbox.addEventListener(event, function() {
+                if (inputFilter(this.value)) {
+                    this.oldValue = this.value;
+                    this.oldSelectionStart = this.selectionStart;
+                    this.oldSelectionEnd = this.selectionEnd;
+                } else if (this.hasOwnProperty("oldValue")) {
+                    this.value = this.oldValue;
+                    this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+                } else {
+                    this.value = "";
+                }
+                });
+            });
+        }
+
+        setInputFilter(document.getElementById("long_odc"), function(value) {
+            return /^\d*\.?\d*$/.test(value); // Allow digits and '.' only, using a RegExp
+        });
+        setInputFilter(document.getElementById("lat_odc"), function(value) {
+            return /^\d*\.?\d*$/.test(value); // Allow digits and '.' only, using a RegExp
+        });
+
+
+
+
+
     });
 
     $('.hapus-odc').click(function(){
@@ -224,5 +253,22 @@
 
 
 		});
+
+        function isNumberKey(evt){
+            var charCode = (evt.which) ? evt.which : evt.keyCode
+            switch (true) {
+                case charCode > 31 && (charCode < 48 || charCode > 57) && charCode != 45 && charCode != 46:
+                    return false;
+                    break;
+                case charCode === 45:
+                    return true;
+                    break;
+                case charCode === 46:
+                    return true;
+                default:
+                    return true;
+            }
+
+        }
 </script>
 @endsection

@@ -19,8 +19,8 @@ class CreateOdcsTable extends Migration
             $table->string('nama_odc');
             $table->integer('start_core');
             $table->integer('end_core');
-            $table->float('long')->nullable();
-            $table->float('lat')->nullable();
+            $table->string('long')->nullable();
+            $table->string('lat')->nullable();
             $table->integer('kapasitas')->nullable();
             $table->string('alamat')->nullable();
             $table->timestamps();

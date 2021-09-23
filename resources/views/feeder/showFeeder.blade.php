@@ -393,7 +393,7 @@
                             <span>Longitude</span>
                         </div>
                         <div class="col-md-12">
-                            <input type="number" name="long" value="" class="form-control" required>
+                            <input type="text" onkeypress="return isNumberKey(event)" name="long" value="" class="form-control" required>
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -401,7 +401,7 @@
                             <span>Latitude</span>
                         </div>
                         <div class="col-md-12">
-                            <input type="number" name="lat" value="" class="form-control" required>
+                            <input type="number" onkeypress="return isNumberKey(event)" name="lat" value="" class="form-control" required>
                         </div>
                     </div>
                 </div>
@@ -676,6 +676,23 @@
 
 @section('linkfooter')
 <script>
+
+    function isNumberKey(evt){
+        var charCode = (evt.which) ? evt.which : evt.keyCode
+        switch (true) {
+            case charCode > 31 && (charCode < 48 || charCode > 57) && charCode != 45 && charCode != 46:
+                return false;
+                break;
+            case charCode === 45:
+                return true;
+                break;
+            case charCode === 46:
+                return true;
+            default:
+                return true;
+        }
+
+    }
 
     $(".belum-tercatu").click(function (e) {
         alert("Belum tercatu ke ODC");
