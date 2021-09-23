@@ -730,7 +730,7 @@
     });
 
     $(".assign-odp").click(function (e) {
-        $("#edit-assign-this").modal("hide");
+        // $("#edit-assign-this").modal("hide");
         const core_splited_id = $(this).data('core_splited_id');
         const core_id = $(this).data('core_id');
         // alert(core_splited_id);
