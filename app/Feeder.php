@@ -23,8 +23,8 @@ class Feeder extends Model
         return $this->hasMany(Core::class,'feeder_id','id');
     }
 
-    public function feeder_panel_ftm_oa()
+    public function ftm_oa()
     {
-        return $this->hasMany(FeederPanelFtmOa::class,'feeder_id','id');
+        return $this->belongsTo(FtmOa::class);
     }
 }

@@ -13,7 +13,7 @@ class Sto extends Model
         return $this->hasMany(Feeder::class,'sto_id','id');
     }
 
-    public function sto()
+    public function olt()
     {
         return $this->hasMany(Olt::class,'sto_id','id');
     }

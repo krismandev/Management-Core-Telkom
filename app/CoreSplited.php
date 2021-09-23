@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class CoreSplited extends Model
 {
-    protected $fillable = ['status','core_id','odc_id','panel_odc_in','core_odc_in','spliter','panel_odc_out','port_odc_out','dist_odc_out'];
+    // protected $fillable = ['status','core_id','odc_id','panel_odc_in','core_odc_in','spliter','panel_odc_out','port_odc_out','dist_odc_out'];
+
+    protected $guarded = [];
 
     public function core()
     {

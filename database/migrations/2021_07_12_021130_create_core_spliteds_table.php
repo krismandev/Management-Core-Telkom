@@ -18,9 +18,9 @@ class CreateCoreSplitedsTable extends Migration
             $table->string('status')->nullable();
             $table->integer('core_id');
             $table->integer('odc_id')->nullable();
-            $table->integer('panel_odc_in')->nullable();
-            $table->integer('core_odc_in')->nullable();
-            $table->integer('spliter')->nullable();
+            // $table->integer('panel_odc_in')->nullable();
+            // $table->integer('core_odc_in')->nullable();
+            // $table->integer('spliter')->nullable();
             $table->integer('panel_odc_out')->nullable();
             $table->integer('port_odc_out')->nullable();
             $table->integer('dist_odc_out')->nullable();

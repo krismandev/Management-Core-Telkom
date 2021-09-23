@@ -16,4 +16,9 @@ class Olt extends Model
     {
         return $this->hasMany(SlotOlt::class);
     }
+
+    public function core()
+    {
+        return $this->hasMany(Core::class,'olt_id','id');
+    }
 }

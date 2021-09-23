@@ -17,4 +17,9 @@ class FtmOa extends Model
     {
         return $this->hasMany(PanelFtmOa::class,'ftm_oa_id','id');
     }
+
+    public function feeder()
+    {
+        return $this->hasMany(Feeder::class);
+    }
 }

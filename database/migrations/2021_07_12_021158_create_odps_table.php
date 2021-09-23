@@ -22,6 +22,7 @@ class CreateOdpsTable extends Migration
             $table->string('nama_odp')->nullable();
             $table->float('long')->nullable();
             $table->float('lat')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

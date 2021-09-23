@@ -35,7 +35,7 @@
                                     <td>{{$olt->ip}}</td>
                                     <td>{{$olt->merk}}</td>
                                     <td>{{$olt->type}}</td>
-                                    <td>{{$olt->frame}}</td>
+                                    <td>{{$olt->no_frame}}</td>
                                     {{-- <td>
                                         <a href="#" class="btn btn-warning edit-olt" data-toggle="modal" data-target="#editolt" data-olt_id="{{$olt->id}}" data-nama_olt="{{$olt->nama_olt}}" data-alamat="{{$olt->alamat}}">Edit</a>
                                         <a href="#" class="btn btn-danger hapus-olt" data-olt_id="{{$olt->id}}">Hapus</a>

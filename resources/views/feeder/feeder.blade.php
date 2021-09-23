@@ -47,6 +47,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @if (isset($sto_selected))
                                 @foreach ($feeders as $feeder)
                                 <tr>
                                     <th scope="row">{{$loop->iteration}}</th>
@@ -58,12 +59,13 @@
                                     <td>{{$feeder->core_used}}</td>
                                     <td>{{$feeder->core_available}}</td>
                                     <td style="text-align: center;">
-                                        <a href="{{route('showFeeder',$feeder->id)}}" class="btn btn-primary hapus-feeder">Buka</a>
+                                        <a href="{{route('showFeeder',['sto_id'=>$sto_selected->id,'feeder_id'=>$feeder->id])}}" class="btn btn-primary hapus-feeder">Buka</a>
                                         <a href="#" class="btn btn-warning edit-feeder" data-toggle="modal" data-target="#editfeeder" data-feeder_id="{{$feeder->id}}" data-nama_feeder="{{$feeder->nama_feeder}}">Edit</a>
                                         <a href="#" class="btn btn-danger hapus-feeder" data-feeder_id="{{$feeder->id}}">Hapus</a>
                                     </td>
                                 </tr>
                                 @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>
@@ -110,23 +112,6 @@
                                 <option value="{{$ftom_oa->id}}">{{$ftom_oa->nama_ftm}}</option>
                             @endforeach
                             @endif
-                        </select>
-                    </div>
-                </div>
-                <div class="row form-group">
-                    <div class="col-md-12">
-                        <span>Panel FTM OA</span>
-                    </div>
-                    <div class="col-md-12">
-                        <select name="panel_ftm_oa" id="" class="form-control" required>
-                            <option value="">Pilih Panel</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
                         </select>
                     </div>
                 </div>

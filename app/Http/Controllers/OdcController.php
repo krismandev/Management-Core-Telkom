@@ -53,12 +53,12 @@ class OdcController extends Controller
                 'odc_id' => $odc->id
             ]);
 
-            for ($j=0; $j < 4; $j++) {
-                $coreSplited = CoreSplited::where('core_id',$core->id)->first();
-                $coreSplited->update([
-                    'odc_id' => $odc->id,
-                ]);
-            }
+            // for ($j=0; $j < 4; $j++) {
+            //     $coreSplited = CoreSplited::where('core_id',$core->id)->first();
+            //     $coreSplited->update([
+            //         'odc_id' => $odc->id,
+            //     ]);
+            // }
         }
 
         return back()->with($this->pesan_create);
@@ -90,25 +90,45 @@ class OdcController extends Controller
     public function assignCore(Request $request)
     {
         $request->validate([
-            'panel_odc_in' => 'required',
-            'core_odc_in' => 'required',
-            'spliter' => 'required',
-            'panel_odc_out' => 'required',
-            'port_odc_out' => 'required',
-            'dist_odc_out' => 'required'
+            'panel_odc_in' => 'required|numeric',
+            'core_odc_in' => 'required|numeric',
+            'spliter' => 'required|numeric',
+            'olt_id' => 'required',
+            'slot_olt_id' => 'required',
+            'port_olt'=> 'required',
+            'panel' => 'required|numeric',
         ]);
 
-        $core_splited = CoreSplited::find($request->core_splited_id);
-
-        $core_splited->update([
-            'status' => 'assigned',
-            'core_odc_in' => $request->core_odc_in,
+        $core = Core::find($request->core_id);
+        // dd($core);
+        // dd($request->panel_odc_id);
+        $core->update([
+            'panel' => $request->panel,
+            'olt_id'=>$request->olt_id,
+            'slot_olt_id' => $request->slot_olt_id,
+            'port_olt'=> $request->port_olt,
             'panel_odc_in' => $request->panel_odc_in,
-            'spliter' => $request->spliter,
-            'panel_odc_out' => $request->panel_odc_out,
-            'port_odc_out' => $request->port_odc_out,
-            'dist_odc_out' => $request->dist_odc_out,
+            'core_odc_in' => $request->core_odc_in,
+            'spliter' => $request->spliter
         ]);
+
+
+        for ($j=1; $j <= 4; $j++) {
+
+            $core_splited = CoreSplited::create([
+                'core_id'=>$core->id,
+                'odc_id' => $core->odc_id,
+            ]);
+
+            $odp = Odp::create([
+                'core_id'=> $core->id,
+                'core_splited_id' => $core_splited->id,
+                'no_odp' => $j,
+                'status' => 'IDLE'
+            ]);
+        }
+
+
 
         return back()->with('success','Berhasil assign core');
 
@@ -117,25 +137,33 @@ class OdcController extends Controller
     public function assignOdp(Request $request)
     {
         $request->validate([
+            'panel_odc_out' => 'required',
+            'port_odc_out'=> 'required',
+            'dist_odc_out' => 'required',
             'nama_frame_odp' => 'required',
             'nama_odp' => 'required',
             'long' => 'required',
             'lat' => 'required'
         ]);
 
-        // $core_splited = CoreSplited::find($request->core_splited_id);
-        // dd($core_splited->core);
-        $jumlah = Odp::where('core_id', $request->core_id)->count();
+        // dd($request->core_splited_id);
 
+        $core_splited = CoreSplited::find($request->core_splited_id);
+        $odp = Odp::where('core_splited_id',$core_splited->id)->first();
 
-        $odp = Odp::create([
-            'core_splited_id' => $request->core_splited_id,
-            'core_id' => $request->core_id,
-            'no_odp' => $jumlah + 1,
+        $core_splited->update([
+            'panel_odc_out' => $request->panel_odc_out,
+            'port_odc_out' => $request->port_odc_out,
+            'dist_odc_out' => $request->dist_odc_out,
+            'status' => 'assigned'
+        ]);
+
+        $odp->update([
             'nama_odp' => $request->nama_odp,
             'nama_frame_odp' => $request->nama_frame_odp,
             'long' => $request->long,
-            'lat' => $request->lat
+            'lat' => $request->lat,
+            'status' => 'assigned'
         ]);
 
         return back()->with('success','Berhasil assign ODP');

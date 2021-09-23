@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Core;
 use App\CoreSplited;
 use App\Feeder;
-use App\FeederPanelFtmOa;
 use App\FtmOa;
 use App\Odc;
 use App\PanelFtmOa;
@@ -41,13 +40,8 @@ class FeederController extends Controller
             'nama_feeder' => 'required',
             'kapasitas' => 'required',
             'ftm_oa_id' => 'required',
-            'panel_ftm_oa' => 'required'
         ]);
 
-        $panel = PanelFtmOa::where('ftm_oa_id',$request->ftm_oa_id)->where('no_panel',$request->panel_ftm_oa)->first();
-
-        $jumlah_core_di_panel = $panel->core->count();
-        // dd($jumlah_core_di_panel);
         $feeder = Feeder::create([
             'nama_feeder' => $request->nama_feeder,
             'kapasitas' => $request->kapasitas,
@@ -55,25 +49,18 @@ class FeederController extends Controller
             'ftm_oa_id' => $request->ftm_oa_id
         ]);
 
-        if ($feeder->kapasitas > 144) {
-            $feeder_panel = FeederPanelFtmOa::create([
-                'panel_ftm_oa_id' => $panel->id,
-                'feeder_id' => $feeder->id
-            ]);
-        }
-
         for ($i=1; $i <= $request->kapasitas; $i++) {
             $core = Core::create([
                 'feeder_id' => $feeder->id,
                 'no_core_feeder' => $i
             ]);
 
-            for ($j=0; $j < 4; $j++) {
-                $core_splited = CoreSplited::create([
-                    'status' => 'idle',
-                    'core_id' => $core->id,
-                ]);
-            }
+            // for ($j=0; $j < 4; $j++) {
+            //     $core_splited = CoreSplited::create([
+            //         'status' => 'idle',
+            //         'core_id' => $core->id,
+            //     ]);
+            // }
         }
 
         return back()->with($this->pesan_create);
@@ -84,7 +71,6 @@ class FeederController extends Controller
         $feeder = Feeder::find($id);
         $cores = Core::where('feeder_id',$feeder->id)->get();
         $data_odcs = Odc::where('feeder_id',$feeder->id)->get();
-
         return view('feeder.showFeeder',compact(['feeder','cores','data_odcs','id']));
     }
 

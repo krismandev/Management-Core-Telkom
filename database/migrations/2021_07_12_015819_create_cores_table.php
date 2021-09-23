@@ -16,9 +16,15 @@ class CreateCoresTable extends Migration
         Schema::create('cores', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('feeder_id');
-            $table->integer('panel_ftm_oa_id');
+            $table->integer('olt_id')->nullable();
+            $table->integer('slot_olt_id')->nullable();
+            $table->integer('port_olt')->nullable();
+            $table->integer('panel')->nullable();
             $table->integer('odc_id')->nullable();
             $table->integer('no_core_feeder');
+            $table->integer('panel_odc_in')->nullable();
+            $table->integer('core_odc_in')->nullable();
+            $table->integer('spliter')->nullable();
             $table->timestamps();
         });
     }

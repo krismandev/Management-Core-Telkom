@@ -51,4 +51,13 @@ class OltController extends Controller
 
         return back()->with($this->pesan_create);
     }
+
+    public function getSlotOlt($olt_id)
+    {
+        $olt = Olt::find($olt_id);
+        $slot_olts = SlotOlt::where('olt_id',$olt->id)->get();
+        return response()->json([
+            'data' => $slot_olts
+        ]);
+    }
 }

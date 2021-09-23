@@ -11,4 +11,9 @@ class SlotOlt extends Model
     {
         return $this->belongsTo(Olt::class);
     }
+
+    public function core()
+    {
+        return $this->hasMany(Core::class);
+    }
 }
