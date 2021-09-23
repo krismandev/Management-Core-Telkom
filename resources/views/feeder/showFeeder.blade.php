@@ -851,7 +851,7 @@
 
     $("select[name='odc_id']").change(function(e){
     var odc_id = $(this).val();
-    var url = "/dashboard/feeder/{{$id}}/"+"odc/"+odc_id;
+    var url = "/dashboard/feeder/{{$feeder_id}}/"+"odc/"+odc_id;
     window.location.href = url;
   })
 </script>

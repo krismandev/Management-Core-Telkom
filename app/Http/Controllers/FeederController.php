@@ -66,12 +66,12 @@ class FeederController extends Controller
         return back()->with($this->pesan_create);
     }
 
-    public function showFeeder($id)
+    public function showFeeder($sto_id,$feeder_id)
     {
-        $feeder = Feeder::find($id);
+        $feeder = Feeder::find($feeder_id);
         $cores = Core::where('feeder_id',$feeder->id)->get();
         $data_odcs = Odc::where('feeder_id',$feeder->id)->get();
-        return view('feeder.showFeeder',compact(['feeder','cores','data_odcs','id']));
+        return view('feeder.showFeeder',compact(['feeder','cores','data_odcs','feeder_id']));
     }
 
     public function showFeederFiltered($id,$odc_id){
