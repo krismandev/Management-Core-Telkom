@@ -84,7 +84,8 @@ class OdcController extends Controller
     {
         $odc = Odc::find($id);
         $cores = Core::where('odc_id',$id)->get();
-        return view('odc.showOdc',compact(['odc','cores']));
+        $feeder = $odc->feeder;
+        return view('odc.showOdc',compact(['odc','cores','feeder']));
     }
 
     public function assignCore(Request $request)

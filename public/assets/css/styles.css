@@ -8,10 +8,10 @@
     Version: 1.0
 
 ----------------------------------------------
-    
+
     CSS INDEX
     ===================
-  
+
     1. Core Css
     2. Dashboard One
         2.1 Sidebar Menu
@@ -1323,6 +1323,11 @@ table.dbkit-table tr td {
 .sbg4 {
     background: -webkit-linear-gradient(59deg, rgb(254, 208, 63) 0%, rgb(230, 190, 63) 110%);
     background: linear-gradient(31deg, rgb(254, 208, 63) 0%, rgb(230, 190, 63) 110%);
+}
+
+.sbg5 {
+    background: -webkit-linear-gradient(291deg, rgb(81, 177, 255) 0%, rgb(141, 171, 247) 100%);
+    background: linear-gradient(159deg, rgb(81, 177, 255) 0%, rgb(141, 171, 247) 100%);
 }
 
 .seofct-icon {

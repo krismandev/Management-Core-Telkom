@@ -27,4 +27,25 @@ class Feeder extends Model
     {
         return $this->belongsTo(FtmOa::class);
     }
+
+    public function jumlah_core_aktif()
+    {
+        $core_aktif = Core::where('feeder_id',$this->id)->where('panel_odc_in','!=',null)->count();
+        return $core_aktif;
+    }
+
+    public function jumlah_odp_aktif()
+    {
+        $odp_aktif = 0;
+        $cores = Core::where('feeder_id',$this->id)->get();
+        // dd($cores);
+        foreach ($cores as $core) {
+            foreach ($core->core_splited as $core_splited) {
+                if ($core_splited->odp->status == 'assigned') {
+                    $odp_aktif++;
+                }
+            }
+        }
+        return $odp_aktif;
+    }
 }

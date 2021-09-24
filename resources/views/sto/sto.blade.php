@@ -1,8 +1,12 @@
 @extends('layouts2.master')
+@section('title','STO')
+@section('header')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css"/>
+@stop
 @section('breadcrumb')
     <li><span>STO</span></li>
 @endsection
-@section('title','STO')
 @section('content')
 <div class="row">
     <div class="col-lg-12 mt-5">
@@ -16,7 +20,7 @@
                 </div>
                 <div class="single-table mt-3">
                     <div class="table-responsive">
-                        <table class="table text-center">
+                        <table class="table text-center" id="data_stos_reguler">
                             <thead class="text-uppercase bg-dark">
                                 <tr class="text-white">
                                     <th scope="col">#</th>
@@ -52,6 +56,8 @@
 @endsection
 
 @section('linkfooter')
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <div class="modal fade" id="tambahsto" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
       <div class="modal-content">
@@ -133,6 +139,7 @@
 
 <script>
     $(document).ready(function () {
+        $('#data_stos_reguler').DataTable();
         $(".edit-sto").click(function (e) {
             e.preventDefault();
             const sto_id = $(this).data('sto_id')

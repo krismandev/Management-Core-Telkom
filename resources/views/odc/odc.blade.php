@@ -1,5 +1,9 @@
 @extends('layouts2.master')
 @section('title','ODC')
+@section('header')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css"/>
+@stop
 @section('breadcrumb')
     <li><span>ODC</span></li>
 @endsection
@@ -17,7 +21,7 @@
                 </div>
                 <div class="single-table mt-3">
                     <div class="table-responsive">
-                        <table class="table">
+                        <table class="table" id="data_odcs_reguler">
                             <thead class="text-uppercase bg-dark">
                                 <tr class="text-white text-center">
                                     <th scope="col">#</th>
@@ -42,7 +46,7 @@
                                     <td>{{$odc->lat}}</td>
                                     <td>
                                         <a href="#" class="btn btn-warning edit-odc" data-toggle="modal" data-target="#editodc" data-odc_id="{{$odc->id}}" data-nama_odc="{{$odc->nama_odc}}" data-alamat="{{$odc->alamat}}">Edit</a>
-                                        <a href="#" class="btn btn-danger hapus-odc" data-odc_id="{{$odc->id}}">Hapus</a>
+                                        {{-- <a href="#" class="btn btn-danger hapus-odc" data-odc_id="{{$odc->id}}">Hapus</a> --}}
                                         <a href="{{route('showOdc',$odc->id)}}" class="btn btn-primary">Buka</a>
                                     </td>
                                 </tr>
@@ -59,6 +63,8 @@
 @endsection
 
 @section('linkfooter')
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <div class="modal fade" id="tambahodc" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
       <div class="modal-content">
@@ -194,6 +200,7 @@
 
 <script>
     $(document).ready(function () {
+        $('#data_odcs_reguler').DataTable();
         $(".edit-odc").click(function (e) {
             e.preventDefault();
             const odc_id = $(this).data('odc_id')

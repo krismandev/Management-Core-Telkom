@@ -10,6 +10,43 @@
         vertical-align: center;
     }
 </style>
+<div class="col-lg-12">
+    <div class="row">
+        <div class="col-md-4 mt-5 mb-3">
+            <div class="card">
+                <div class="seo-fact sbg1"><div class="chartjs-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+                    <div class="p-4 d-flex justify-content-between align-items-center">
+                        <div class="seofct-icon"><i class="ti-share"></i> Jumlah ODC</div>
+                        <h2>{{$feeder->odc->count()}}</h2>
+                    </div>
+                    <canvas id="seolinechart1" height="52" width="316" style="display: block; width: 316px; height: 52px;" class="chartjs-render-monitor"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mt-md-5 mb-3">
+            <div class="card">
+                <div class="seo-fact sbg5"><div class="chartjs-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+                    <div class="p-4 d-flex justify-content-between align-items-center">
+                        <div class="seofct-icon"><i class="ti-share"></i> Core Aktif</div>
+                        <h2>{{$feeder->jumlah_core_aktif()}}</h2>
+                    </div>
+                    <canvas id="seolinechart2" height="52" width="316" style="display: block; width: 316px; height: 52px;" class="chartjs-render-monitor"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mt-md-5 mb-3">
+            <div class="card">
+                <div class="seo-fact sbg2"><div class="chartjs-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+                    <div class="p-4 d-flex justify-content-between align-items-center">
+                        <div class="seofct-icon"><i class="ti-share"></i> Jumlah ODP Aktif</div>
+                        <h2>{{$feeder->jumlah_odp_aktif()}}</h2>
+                    </div>
+                    <canvas id="seolinechart2" height="52" width="316" style="display: block; width: 316px; height: 52px;" class="chartjs-render-monitor"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="col-lg-12 mt-2">
     <div class="card">
         <div class="card-header">
@@ -25,15 +62,9 @@
 
             </div>
             <div class="pull-left" style="margin-left: 20px;">
-                <div class="row mt-2">
-                    <button class="btn btn-secondary"></button>Belum ter-assign ke ODC
-                </div>
-                <div class="row mt-2">
-                    <button class="btn btn-primary"></button>Sudah ter-assign ke ODC, namun belum ke ODP
-                </div>
-                <div class="row mt-2">
-                    <button class="btn btn-success"></button>Ter-assign sampai ODP
-                </div>
+                    <button class="btn btn-secondary" style="margin-right:5px;"></button>Belum ter-assign ke ODC
+                    <button class="btn btn-primary" style="margin-right:5px; margin-left: 15px;"></button>Sudah ter-assign ke ODC, namun belum ke ODP
+                    <button class="btn btn-success" style="margin-right:5px; margin-left: 15px;"></button>Ter-assign sampai ODP
             </div>
             <div class="pull-right">
                 <select name="odc_id" id="" class="form-control">
@@ -51,25 +82,6 @@
         </div>
         <div class="card-body">
             <h4 class="header-title">Core</h4>
-
-
-            {{-- <div class="row mt-2">
-                @foreach ($cores as $core)
-                <div class="col-lg-3">
-                    <div class="col-lg-12">
-                        <div class="col-lg-2">
-                            {{$core->no_core_feeder}}
-                        </div>
-                        <div class="col-lg-10">
-                        @foreach ($core as $core_split)
-
-                                <button class="btn btn-info"></button>
-                        @foreach ($core as $core_split)
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-            </div> --}}
             <div class="row mt-2">
                 @foreach ($cores as $core)
 
@@ -89,7 +101,7 @@
                                 data-core_odc_in="{{$core->core_odc_in}}"
                                 data-spliter="{{$core->spliter}}"></button>
                             @elseif($core_splited->status == 'assigned' || $core_splited->odp->status == 'assigned')
-                            <button class="btn btn-success" id="show-detail" data-toggle="modal" data-target="#show-core-odp"
+                            <button class="btn btn-success show-detail" data-toggle="modal" data-target="#show-core-odp"
                                 data-show_hostname="{{$core->olt->hostname}}"
                                 data-show_ip="{{$core->olt->ip}}"
                                 data-show_merk="{{$core->olt->merk}}"
@@ -806,7 +818,7 @@
 
     });
 
-    $("#show-detail").click(function (e) {
+    $(".show-detail").click(function (e) {
         const show_hostname = $(this).data("show_hostname")
         const show_ip = $(this).data("show_ip")
         const show_merk = $(this).data("show_merk")
