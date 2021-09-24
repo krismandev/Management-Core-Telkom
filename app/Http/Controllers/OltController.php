@@ -60,4 +60,26 @@ class OltController extends Controller
             'data' => $slot_olts
         ]);
     }
+
+    public function updateOlt(Request $request)
+    {
+        $request->validate([
+            'hostname' => 'required',
+            'ip'=> 'required',
+            'merk' => 'required',
+            'type' => 'required',
+            'no_frame' => 'required'
+        ]);
+
+        $olt = Olt::find($request->olt_id);
+        $olt->update([
+            'hostname' => $request->hostname,
+            'ip' => $request->ip,
+            'merk' => $request->merk,
+            'type' => $request->type,
+            'no_frame' => $request->no_frame
+        ]);
+
+        return back()->with('success','Berhasil mengupdate data');
+    }
 }

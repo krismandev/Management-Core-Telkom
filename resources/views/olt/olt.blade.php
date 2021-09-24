@@ -1,6 +1,8 @@
 @extends('layouts2.master')
 @section('breadcrumb')
-    <li><span>OLT - {{$sto->nama_sto}}</span></li>
+    <li><a href="{{route('getSTO')}}">STO - {{$sto->nama_sto}}</a></li>
+    <li><span>Dat OLT</span></li>
+
 @endsection
 @section('title','OLT')
 @section('content')
@@ -25,6 +27,7 @@
                                     <th scope="col">Merk</th>
                                     <th scope="col">Type</th>
                                     <th scope="col">Frame</th>
+                                    <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -36,6 +39,15 @@
                                     <td>{{$olt->merk}}</td>
                                     <td>{{$olt->type}}</td>
                                     <td>{{$olt->no_frame}}</td>
+                                    <td>
+                                        <a href="#" class="btn btn-warning edit-olt"
+                                        data-olt_id="{{$olt->id}}"
+                                        data-hostname="{{$olt->hostname}}"
+                                        data-ip="{{$olt->ip}}"
+                                        data-merk="{{$olt->merk}}"
+                                        data-type="{{$olt->type}}"
+                                        data-no_frame="{{$olt->no_frame}}" data-toggle="modal" data-target="#editolt">Edit</a>
+                                    </td>
                                     {{-- <td>
                                         <a href="#" class="btn btn-warning edit-olt" data-toggle="modal" data-target="#editolt" data-olt_id="{{$olt->id}}" data-nama_olt="{{$olt->nama_olt}}" data-alamat="{{$olt->alamat}}">Edit</a>
                                         <a href="#" class="btn btn-danger hapus-olt" data-olt_id="{{$olt->id}}">Hapus</a>
@@ -140,20 +152,45 @@
             <div class="modal-body">
                 <div class="row form-group">
                     <div class="col-md-12">
-                        <span>Nama olt</span>
+                        <span>Hostname</span>
                     </div>
                     <div class="col-md-12">
-                        <input type="hidden" id="edit_olt_id" name="olt_id">
-                        <input type="text" name="nama_olt" id="edit_nama_olt" value="" class="form-control" placeholder="Masukkan nama olt Edit">
+                        <input type="text" name="hostname" id="edit_hostname" value="" class="form-control" placeholder="Masukkan Hostname">
+                        <input type="hidden" name="olt_id" id="edit_olt_id" value="" class="form-control" placeholder="Masukkan Hostname">
                     </div>
                 </div>
 
                 <div class="row form-group">
                     <div class="col-md-12">
-                        <span>Alamat</span>
+                        <span>IP</span>
                     </div>
                     <div class="col-md-12">
-                        <textarea class="form-control" rows="4" name="alamat" id="edit_alamat"></textarea>
+                        <input type="text" name="ip" id="edit_ip" value="" class="form-control" placeholder="Masukkan IP OLT">
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-md-12">
+                        <span>Merk</span>
+                    </div>
+                    <div class="col-md-12">
+                        <input type="text" name="merk" id="edit_merk" value="" class="form-control" placeholder="Masukan merk">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-12">
+                        <span>Tipe</span>
+                    </div>
+                    <div class="col-md-12">
+                        <input type="text" name="type" id="edit_type" value="" class="form-control" placeholder="Masukan Tipe">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-12">
+                        <span>No. Frame</span>
+                    </div>
+                    <div class="col-md-12">
+                        <input type="number" name="no_frame" id="edit_no_frame" value="" class="form-control" placeholder="Masukan No. Frame">
                     </div>
                 </div>
             </div>
@@ -171,12 +208,20 @@
         $(".edit-olt").click(function (e) {
             e.preventDefault();
             const olt_id = $(this).data('olt_id')
-            const nama_olt = $(this).data('nama_olt')
-            const alamat = $(this).data('alamat')
+            const hostname = $(this).data('hostname')
+            const ip = $(this).data('ip')
+            const merk = $(this).data('merk')
+            const type = $(this).data('type')
+            const no_frame = $(this).data('no_frame')
+
 
             $("#edit_olt_id").val(olt_id);
-            $("#edit_nama_olt").val(nama_olt);
-            $("#edit_alamat").html(alamat);
+            $("#edit_hostname").val(hostname);
+            $("#edit_ip").val(ip);
+            $("#edit_merk").val(merk);
+            $("#edit_type").val(type);
+            $("#edit_no_frame").val(no_frame);
+
         });
     });
 
