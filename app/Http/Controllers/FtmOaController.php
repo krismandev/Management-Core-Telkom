@@ -44,4 +44,20 @@ class FtmOaController extends Controller
 
         return back()->with($this->pesan_create);
     }
+
+    public function updateFtmOa(Request $request,$sto_id)
+    {
+        $request->validate([
+            'nama_ftm' => 'required',
+            'no_rak' => 'required'
+        ]);
+
+        $ftm = FtmOa::find($request->ftm_oa_id);
+        $ftm->update([
+            'nama_ftm' => $request->nama_ftm,
+            'no_rak' => $request->no_rak
+        ]);
+
+        return back()->with('success','Berhasil mengupdate data');
+    }
 }

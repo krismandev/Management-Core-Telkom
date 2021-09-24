@@ -68,17 +68,25 @@ class FeederController extends Controller
 
     public function showFeeder($sto_id,$feeder_id)
     {
+        // dd("Kok kesini");
         $feeder = Feeder::find($feeder_id);
         $cores = Core::where('feeder_id',$feeder->id)->get();
         $data_odcs = Odc::where('feeder_id',$feeder->id)->get();
         return view('feeder.showFeeder',compact(['feeder','cores','data_odcs','feeder_id']));
     }
 
-    public function showFeederFiltered($id,$odc_id){
-        $feeder = Feeder::find($id);
-        $odc = Odc::find($odc_id);
-        $cores = Core::where('feeder_id',$feeder->id)->where('odc_id',$odc_id)->get();
-        $data_odcs = Odc::where('feeder_id',$feeder->id)->get();
+    public function showFeederFiltered($id,$odc_id = null){
+        if ($odc_id != null) {
+            $feeder = Feeder::find($id);
+            $odc = Odc::find($odc_id);
+            $cores = Core::where('feeder_id',$feeder->id)->where('odc_id',$odc_id)->get();
+            $data_odcs = Odc::where('feeder_id',$feeder->id)->get();
+        }else{
+            $feeder = Feeder::find($id);
+            $odc = Odc::find($odc_id);
+            $cores = Core::where('feeder_id',$feeder->id)->get();
+            $data_odcs = Odc::where('feeder_id',$feeder->id)->get();
+        }
         return view('feeder.showFeeder',compact(['feeder','cores','data_odcs','id','odc_id','odc']));
     }
 

@@ -1,7 +1,7 @@
 @extends('layouts2.master')
 @section('breadcrumb')
     <li><a href="{{route('getSTO')}}">STO - {{$sto->nama_sto}}</a></li>
-    <li><span>Dat OLT</span></li>
+    <li><span>Data OLT</span></li>
 
 @endsection
 @section('title','OLT')

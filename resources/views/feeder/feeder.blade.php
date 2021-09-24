@@ -14,7 +14,7 @@
 
                 <div class="text-right">
                     @if(isset($sto_selected))
-                    <button class="btn btn-primary add-feeder" data-toggle="modal" data-target="#tambahfeeder" data-sto_id="{{$sto_selected->id}}">Tambah</button>
+                    <button class="btn btn-primary add-feeder" data-toggle="modal" data-target="#tambahfeeder" data-sto_id="{{$sto_selected->id}}">Tambah Feeder</button>
                     @endif
                     <div class="pull-right">
                         <select name="sto_id" id="" class="form-control">
@@ -29,6 +29,7 @@
                         </select>
                     </div>
                 </div>
+                @if (isset($sto_selected))
                 <div class="single-table mt-3">
                     <div class="table-responsive">
                         <table class="table">
@@ -47,7 +48,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @if (isset($sto_selected))
+
                                 @foreach ($feeders as $feeder)
                                 <tr>
                                     <th scope="row">{{$loop->iteration}}</th>
@@ -65,11 +66,13 @@
                                     </td>
                                 </tr>
                                 @endforeach
-                                @endif
                             </tbody>
                         </table>
                     </div>
                 </div>
+                @else
+                <h2>Pilih STO</h2>
+                @endif
             </div>
         </div>
     </div>

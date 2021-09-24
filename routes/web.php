@@ -42,7 +42,6 @@ Route::group(['middleware' => ['auth','checkRole:1,2'],'prefix' => 'dashboard'],
             Route::post('/{sto_id}','FtmOaController@storeFtmOa')->name('storeFtmOa');
             Route::patch('/{sto_id}','FtmOaController@updateFtmOa')->name('updateFtmOa');
 
-
             Route::group(['prefix'=>'panel'],function(){
                 Route::get('/{sto_id}/{ftm_oa_id}','PanelFtmOaController@getPanelFtmOa')->name('getPanelFtmOa');
             });
@@ -59,7 +58,7 @@ Route::group(['middleware' => ['auth','checkRole:1,2'],'prefix' => 'dashboard'],
         Route::get('/','FeederController@getFeeder')->name('getFeeder');
         Route::get('/{sto_id}','FeederController@getFeederFiltered')->name('getFeederFiltered');
         Route::get('/{sto_id}/{feeder_id}','FeederController@showFeeder')->name('showFeeder');
-        Route::get('/{feeder_id}/odc/{odc_id}','FeederController@showFeederFiltered')->name('showFeederFiltered');
+        Route::get('/{feeder_id}/odc/showcore/{odc_id?}','FeederController@showFeederFiltered')->name('showFeederFiltered');
         Route::post('/','FeederController@storeFeeder')->name('storeFeeder');
         Route::patch('/','FeederController@updateFeeder')->name('updateFeeder');
         Route::get('/delete/{id}','FeederController@deleteFeeder')->name('deleteFeeder');

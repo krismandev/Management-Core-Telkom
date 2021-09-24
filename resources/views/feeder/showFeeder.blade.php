@@ -37,8 +37,9 @@
             </div>
             <div class="pull-right">
                 <select name="odc_id" id="" class="form-control">
-                    @if(isset($odc))
-                        <option value="{{$odc->id}}" selected>{{$odc->nama_odc}}</option>
+                    @if(isset($odc) && $odc != null)
+                    <option value="">All ODC</option>
+                    <option value="{{$odc->id}}" selected>{{$odc->nama_odc}}</option>
                     @else
                         <option value="" selected>All ODC</option>
                     @endif
@@ -868,7 +869,7 @@
 
     $("select[name='odc_id']").change(function(e){
     var odc_id = $(this).val();
-    var url = "/dashboard/feeder/{{$feeder_id}}/"+"odc/"+odc_id;
+    var url = "/dashboard/feeder/{{$feeder->id}}/"+"odc/showcore/"+odc_id;
     window.location.href = url;
   })
 </script>

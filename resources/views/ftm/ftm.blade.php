@@ -1,6 +1,7 @@
 @extends('layouts2.master')
 @section('breadcrumb')
-    <li><span>STO - FTM OA</span></li>
+<li><a href="{{route('getSTO')}}">STO - {{$sto->nama_sto}}</a></li>
+<li><span>Master Data FTM</span></li>
 @endsection
 @section('title','FTM')
 @section('content')
@@ -33,7 +34,11 @@
                                     <td>{{$ftm->nama_ftm}}</td>
                                     <td>{{$ftm->no_rak}}</td>
                                     <td>
-                                        <a href="{{route('getPanelFtmOa',['sto_id'=>$sto->id,'ftm_oa_id'=>$ftm->id])}}" class="btn btn-primary">Buka</a>
+                                        {{-- <a href="{{route('getPanelFtmOa',['sto_id'=>$sto->id,'ftm_oa_id'=>$ftm->id])}}" class="btn btn-primary">Buka</a> --}}
+                                        <a href="#" class="btn btn-warning edit-ftm"
+                                        data-ftm_oa_id="{{$ftm->id}}"
+                                        data-nama_ftm="{{$ftm->nama_ftm}}"
+                                        data-no_rak="{{$ftm->no_rak}}" data-toggle="modal" data-target="#editftm">Edit</a>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -104,7 +109,8 @@
                         <span>Nama Rack</span>
                     </div>
                     <div class="col-md-12">
-                        <input type="text" name="nama_ftm" value="" class="form-control" placeholder="Masukkan Nama Rack FTM OA">
+                        <input type="hidden" name="ftm_oa_id" value="" id="edit_ftm_oa_id">
+                        <input type="text" id="edit_nama_ftm" name="nama_ftm" value="" class="form-control" placeholder="Masukkan Nama Rack FTM OA">
                     </div>
                 </div>
 
@@ -113,7 +119,7 @@
                         <span>No. Rack</span>
                     </div>
                     <div class="col-md-12">
-                        <input type="number" name="no_rak" value="" class="form-control" placeholder="Masukkan Nomor Rak">
+                        <input type="number" name="no_rak" id="edit_no_rak" value="" class="form-control" placeholder="Masukkan Nomor Rak">
                     </div>
                 </div>
             </div>
@@ -130,13 +136,13 @@
     $(document).ready(function () {
         $(".edit-ftm").click(function (e) {
             e.preventDefault();
-            const ftm_id = $(this).data('ftm_id')
+            const ftm_oa_id = $(this).data('ftm_oa_id')
             const nama_ftm = $(this).data('nama_ftm')
-            const alamat = $(this).data('alamat')
+            const no_rak = $(this).data('no_rak')
 
-            $("#edit_ftm_id").val(ftm_id);
+            $("#edit_ftm_oa_id").val(ftm_oa_id);
             $("#edit_nama_ftm").val(nama_ftm);
-            $("#edit_alamat").html(alamat);
+            $("#edit_no_rak").val(no_rak);
         });
     });
 
