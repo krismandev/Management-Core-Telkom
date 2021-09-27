@@ -8,7 +8,21 @@
     <li><span>ODC</span></li>
 @endsection
 @section('content')
-
+<div class="col-lg-12">
+    <div class="row">
+        <div class="col-md-6 mt-5 mb-3">
+            <div class="card">
+                <div class="seo-fact sbg4"><div class="chartjs-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+                    <div class="p-4 d-flex justify-content-between align-items-center">
+                        <div class="seofct-icon"><i class="ti-share"></i> Jumlah ODC Seluruh STO</div>
+                        <h2>{{jumlah_sto()}}</h2>
+                    </div>
+                    <canvas id="seolinechart1" height="52" width="316" style="display: block; width: 316px; height: 52px;" class="chartjs-render-monitor"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row">
     <div class="col-lg-12 mt-5">
         <div class="card">
@@ -18,6 +32,18 @@
 
                 <div class="text-right">
                     <button class="btn btn-primary" data-toggle="modal" data-target="#tambahodc">Tambah</button>
+                    <div class="pull-right">
+                        <select name="sto_id" id="" class="form-control">
+                            @if(isset($sto_selected))
+                                <option value="{{$sto_selected->id}}" selected>{{$sto_selected->nama_sto}}</option>
+                            @else
+                                <option value="" selected>Pilih STO</option>
+                            @endif
+                            @foreach ($stos as $sto)
+                            <option value="{{$sto->id}}">{{$sto->nama_sto}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
                 <div class="single-table mt-3">
                     <div class="table-responsive">
@@ -236,10 +262,6 @@
             return /^\d*\.?\d*$/.test(value); // Allow digits and '.' only, using a RegExp
         });
 
-
-
-
-
     });
 
     $('.hapus-odc').click(function(){
@@ -277,5 +299,11 @@
             }
 
         }
+
+        $("select[name='sto_id']").change(function(e){
+            var sto_id = $(this).val();
+            var url = "/dashboard/odc/"+sto_id;
+            window.location.href = url;
+        })
 </script>
 @endsection

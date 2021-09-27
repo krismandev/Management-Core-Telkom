@@ -66,7 +66,7 @@ class FeederController extends Controller
         return back()->with($this->pesan_create);
     }
 
-    public function showFeeder($sto_id,$feeder_id)
+    public function showFeeder($feeder_id)
     {
         // dd("Kok kesini");
         $feeder = Feeder::find($feeder_id);

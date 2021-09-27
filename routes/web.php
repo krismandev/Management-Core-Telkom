@@ -57,7 +57,7 @@ Route::group(['middleware' => ['auth','checkRole:1,2'],'prefix' => 'dashboard'],
     Route::group(['prefix'=>'feeder'],function(){
         Route::get('/','FeederController@getFeeder')->name('getFeeder');
         Route::get('/{sto_id}','FeederController@getFeederFiltered')->name('getFeederFiltered');
-        Route::get('/{sto_id}/{feeder_id}','FeederController@showFeeder')->name('showFeeder');
+        Route::get('/show/{feeder_id}','FeederController@showFeeder')->name('showFeeder');
         Route::get('/{feeder_id}/odc/showcore/{odc_id?}','FeederController@showFeederFiltered')->name('showFeederFiltered');
         Route::post('/','FeederController@storeFeeder')->name('storeFeeder');
         Route::patch('/','FeederController@updateFeeder')->name('updateFeeder');
@@ -67,6 +67,7 @@ Route::group(['middleware' => ['auth','checkRole:1,2'],'prefix' => 'dashboard'],
 
     Route::group(['prefix'=>'odc'],function(){
         Route::get('/','OdcController@getOdc')->name('getOdc');
+        Route::get('/{sto_id}','OdcController@getOdcFiltered')->name('getOdcFiltered');
         Route::post('/','OdcController@storeOdc')->name('storeOdc');
         Route::patch('/','OdcController@updateOdc')->name('updateOdc');
         Route::get('/delete/{id}','OdcController@deleteOdc')->name('deleteOdc');

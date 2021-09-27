@@ -7,6 +7,7 @@ use App\Feeder;
 use App\Core;
 use App\CoreSplited;
 use App\Odp;
+use App\Sto;
 use Illuminate\Http\Request;
 
 class OdcController extends Controller
@@ -20,7 +21,18 @@ class OdcController extends Controller
     {
         $feeders = Feeder::orderBy('nama_feeder')->get();
         $odcs = Odc::orderBy('nama_odc','asc')->get();
-        return view('odc.odc',compact(['odcs','feeders']));
+        $stos = Sto::all();
+        return view('odc.odc',compact(['odcs','feeders','stos']));
+    }
+
+    public function getOdcFiltered($sto_id)
+    {
+        $feeders = Feeder::orderBy('nama_feeder')->get();
+        $sto_selected = Sto::find($sto_id);
+        $odcs = Odc::join('feeders','odcs.feeder_id','=','feeders.id')->join('stos','feeders.sto_id','=','stos.id')->where('sto_id',$sto_id)->get();
+        // dd($odcs);
+        $stos = Sto::all();
+        return view('odc.odc',compact(['odcs','feeders','stos','sto_selected']));
     }
 
     public function storeOdc(Request $request)
