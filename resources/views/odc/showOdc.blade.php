@@ -31,7 +31,7 @@
                                 data-core_odc_in="{{$core->core_odc_in}}"
                                 data-spliter="{{$core->spliter}}"></button>
                             @elseif($core_splited->status == 'assigned' || $core_splited->odp->status == 'assigned')
-                            <button class="btn btn-success" id="show-detail" data-toggle="modal" data-target="#show-core-odp"
+                            <button class="btn btn-success show-detail" data-toggle="modal" data-target="#show-core-odp"
                                 data-show_hostname="{{$core->olt->hostname}}"
                                 data-show_ip="{{$core->olt->ip}}"
                                 data-show_merk="{{$core->olt->merk}}"
@@ -747,7 +747,7 @@
 
     });
 
-    $("#show-detail").click(function (e) {
+    $(".show-detail").click(function (e) {
         const show_hostname = $(this).data("show_hostname")
         const show_ip = $(this).data("show_ip")
         const show_merk = $(this).data("show_merk")
