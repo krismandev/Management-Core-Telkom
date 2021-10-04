@@ -30,9 +30,10 @@ class OdcController extends Controller
         $feeders = Feeder::orderBy('nama_feeder')->get();
         $sto_selected = Sto::find($sto_id);
         $odcs = Odc::select('odcs.id', 'odcs.nama_odc','odcs.start_core','odcs.end_core','odcs.long','odcs.lat','feeders.nama_feeder')->join('feeders','odcs.feeder_id','=','feeders.id')->join('stos','feeders.sto_id','=','stos.id')->where('sto_id',$sto_id)->get();
+        $jumlah_odc_filtered = Odc::join('feeders','odcs.feeder_id','=','feeders.id')->join('stos','feeders.sto_id','=','stos.id')->where('sto_id',$sto_id)->count();
         // dd($odcs);
         $stos = Sto::all();
-        return view('odc.odc',compact(['odcs','feeders','stos','sto_selected']));
+        return view('odc.odc',compact(['odcs','feeders','stos','sto_selected','jumlah_odc_filtered']));
     }
 
     public function storeOdc(Request $request)
