@@ -61,11 +61,14 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php
+                                    // dd($odcs);
+                                @endphp
                                 @foreach ($odcs as $odc)
                                 <tr class="text-center">
                                     <th scope="row">{{$loop->iteration}}</th>
                                     <td>{{$odc->nama_odc}}</td>
-                                    <td>{{$odc->feeder->nama_feeder}}</td>
+                                    <td>{{$odc->nama_feeder}}</td>
                                     <td>{{$odc->start_core}}</td>
                                     <td>{{$odc->end_core}}</td>
                                     <td>{{$odc->long}}</td>
@@ -232,6 +235,8 @@
             const odc_id = $(this).data('odc_id')
             const nama_odc = $(this).data('nama_odc')
             const alamat = $(this).data('alamat')
+
+            alert(odc_id);
 
             $("#edit_odc_id").val(odc_id);
             $("#edit_nama_odc").val(nama_odc);
