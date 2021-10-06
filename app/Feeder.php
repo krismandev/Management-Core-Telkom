@@ -48,4 +48,16 @@ class Feeder extends Model
         }
         return $odp_aktif;
     }
+
+    public function core_assigned()
+    {
+        $cores = Core::where('feeder_id',$this->id)->where('panel_odc_in','!=',null)->count();
+        return $cores;
+    }
+
+    public function core_unasigned()
+    {
+        $cores = Core::where('feeder_id',$this->id)->where('panel_odc_in',null)->count();
+        return $cores;
+    }
 }

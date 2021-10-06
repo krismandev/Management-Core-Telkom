@@ -42,4 +42,6 @@ class Core extends Model
     {
         return $this->belongsTo(SlotOlt::class);
     }
+
+
 }

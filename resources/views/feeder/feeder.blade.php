@@ -70,8 +70,8 @@
                                     <th scope="col">Kapasitas</th>
                                     <th scope="col">Assign</th>
                                     <th scope="col">Unassign</th>
-                                    <th scope="col">Core Used</th>
-                                    <th scope="col">Core Available</th>
+                                    {{-- <th scope="col">Core Used</th> --}}
+                                    {{-- <th scope="col">Core Available</th> --}}
                                     <th scope="col" style="text-align: center;">Aksi</th>
 
                                 </tr>
@@ -84,10 +84,10 @@
                                     <td>{{$feeder->nama_feeder}}</td>
                                     <td>{{$feeder->sto->nama_sto}}</td>
                                     <td>{{$feeder->kapasitas}}</td>
-                                    <td>{{$feeder->assign}}</td>
-                                    <td>{{$feeder->unassign}}</td>
-                                    <td>{{$feeder->core_used}}</td>
-                                    <td>{{$feeder->core_available}}</td>
+                                    <td>{{$feeder->core_assigned()}}</td>
+                                    <td>{{$feeder->core_unasigned()}}</td>
+                                    {{-- <td>{{$feeder->core_used}}</td> --}}
+                                    {{-- <td>{{$feeder->core_available}}</td> --}}
                                     <td style="text-align: center;">
                                         <a href="{{route('showFeeder',$feeder->id)}}" class="btn btn-primary hapus-feeder">Buka</a>
                                         <a href="#" class="btn btn-warning edit-feeder" data-toggle="modal" data-target="#editfeeder" data-feeder_id="{{$feeder->id}}" data-nama_feeder="{{$feeder->nama_feeder}}">Edit</a>

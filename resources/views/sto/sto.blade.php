@@ -38,7 +38,6 @@
                                     <td>{{$sto->alamat}}</td>
                                     <td>
                                         <a href="#" class="btn btn-warning edit-sto" data-toggle="modal" data-target="#editsto" data-sto_id="{{$sto->id}}" data-nama_sto="{{$sto->nama_sto}}" data-alamat="{{$sto->alamat}}">Edit</a>
-                                        <a href="#" class="btn btn-danger hapus-sto" data-sto_id="{{$sto->id}}">Hapus</a>
                                         <a href="{{route('getOlt',$sto->id)}}" class="btn btn-primary">OLT</a>
                                         <a href="{{route('getFtmOa',$sto->id)}}" class="btn btn-primary">FTM</a>
                                         {{-- <a href="{{route('testSto',$sto->id)}}" class="btn btn-primary">Buka</a> --}}
