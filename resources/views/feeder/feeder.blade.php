@@ -89,9 +89,9 @@
                                     {{-- <td>{{$feeder->core_used}}</td> --}}
                                     {{-- <td>{{$feeder->core_available}}</td> --}}
                                     <td style="text-align: center;">
-                                        <a href="{{route('showFeeder',$feeder->id)}}" class="btn btn-primary hapus-feeder">Buka</a>
+                                        <a href="{{route('showFeeder',$feeder->id)}}" class="btn btn-primary">Buka</a>
                                         <a href="#" class="btn btn-warning edit-feeder" data-toggle="modal" data-target="#editfeeder" data-feeder_id="{{$feeder->id}}" data-nama_feeder="{{$feeder->nama_feeder}}">Edit</a>
-                                        <a href="#" class="btn btn-danger hapus-feeder" data-feeder_id="{{$feeder->id}}">Hapus</a>
+{{--                                        <a href="#" class="btn btn-danger hapus-feeder" data-feeder_id="{{$feeder->id}}">Hapus</a>--}}
                                     </td>
                                 </tr>
                                 @endforeach
