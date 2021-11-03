@@ -87,7 +87,7 @@
                                     <td>{{$odc->long}}</td>
                                     <td>{{$odc->lat}}</td>
                                     <td>
-                                        <a href="#" class="btn btn-warning edit-odc" data-toggle="modal" data-target="#editodc" data-odc_id="{{$odc->id}}" data-nama_odc="{{$odc->nama_odc}}" data-alamat="{{$odc->alamat}}">Edit</a>
+                                        <a href="#" class="btn btn-warning edit-odc" data-toggle="modal" data-target="#editodc" data-odc_id="{{$odc->id}}" data-nama_odc="{{$odc->nama_odc}}" data-alamat="{{$odc->alamat}}" data-long="{{$odc->long}}" data-lat="{{$odc->lat}}">Edit</a>
                                         {{-- <a href="#" class="btn btn-danger hapus-odc" data-odc_id="{{$odc->id}}">Hapus</a> --}}
                                         <a href="{{route('showOdc',$odc->id)}}" class="btn btn-primary">Buka</a>
                                     </td>
@@ -230,6 +230,22 @@
                         <textarea class="form-control" rows="4" name="alamat" id="edit_alamat"></textarea>
                     </div>
                 </div>
+                <div class="row form-group">
+                    <div class="col-md-12">
+                        <span>Long</span>
+                    </div>
+                    <div class="col-md-12">
+                        <input type="text" name="long" id="edit_long" value="" class="form-control" onkeypress="return isNumberKey(event)">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-12">
+                        <span>Lat</span>
+                    </div>
+                    <div class="col-md-12">
+                        <input type="text" name="lat" id="edit_lat" value="" class="form-control" onkeypress="return isNumberKey(event)">
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -248,12 +264,16 @@
             const odc_id = $(this).data('odc_id')
             const nama_odc = $(this).data('nama_odc')
             const alamat = $(this).data('alamat')
+            const long = $(this).data('long')
+            const lat = $(this).data('lat')
 
-            alert(odc_id);
+            // alert(long)
 
             $("#edit_odc_id").val(odc_id);
             $("#edit_nama_odc").val(nama_odc);
             $("#edit_alamat").html(alamat);
+            $("#edit_long").val(long);
+            $("#edit_lat").val(lat);
         });
 
         function setInputFilter(textbox, inputFilter) {

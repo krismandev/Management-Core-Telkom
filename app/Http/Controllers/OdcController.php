@@ -81,13 +81,17 @@ class OdcController extends Controller
     {
         $request->validate([
             'nama_odc' => 'required',
-            'alamat' => 'required'
+            'alamat' => 'required',
+            'long'=> 'required',
+            'lat'=> 'required'
         ]);
 
         $odc = Odc::find($request->odc_id);
         $odc->update([
             'nama_odc' => $request->nama_odc,
             'alamat' => $request->alamat,
+            'long'=> $request->long,
+            'lat' => $request->lat,
         ]);
 
         return back()->with('success','Berhasil Mengupdate ODC');

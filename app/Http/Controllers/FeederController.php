@@ -7,6 +7,7 @@ use App\CoreSplited;
 use App\Feeder;
 use App\FtmOa;
 use App\Odc;
+use App\Odp;
 use App\PanelFtmOa;
 use App\Sto;
 use Illuminate\Http\Request;
@@ -102,5 +103,14 @@ class FeederController extends Controller
         ]);
 
         return back()->with('success','Berhasil Mengupdate');
+    }
+
+    public function markAsBroke($odp_id)
+    {
+        $odp = Odp::find($odp_id);
+        $odp->update([
+            "status"=>"RUSAK"
+        ]);
+        return back();
     }
 }

@@ -80,5 +80,6 @@ Route::group(['middleware' => ['auth','checkRole:1,2'],'prefix' => 'dashboard'],
 
     Route::get('/slot-olt/{olt_id}','OltController@getSlotOlt');
 
+    Route::get("/mark-as-broke-odp/{odp_id}","FeederController@markAsBroke");
     // Route::get('/test/{id}','OdcController@showOdc')->name('test');
 });

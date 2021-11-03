@@ -8,7 +8,7 @@
         <div class="menu-inner">
             <nav>
                 <ul class="metismenu" id="menu">
-                    <li class="{{(request()->is('dashboard')) ? 'active' : ''}}"><a href="{{route('index')}}"><i class="ti-map-alt"></i> <span>Dashboard</span></a></li>
+                    <li class="{{(request()->is('dashboard')) ? 'active' : ''}}"><a href="{{route('index')}}"><i class="ti-dashboard"></i> <span>Dashboard</span></a></li>
                     <li class="{{(request()->is('dashboard/sto*')) ? 'active' : ''}}"><a href="{{route('getSTO')}}"><i class="ti-map-alt"></i> <span>STO</span></a></li>
                     {{-- <li class="{{(request()->is('dashboard/sto/olt*')) ? 'active' : ''}}"><a href="{{route('getAllOlt')}}"><i class="ti-map-alt"></i> <span>OLT</span></a></li> --}}
                     {{-- <li class="{{(request()->is('dashboard/ftm*')) ? 'active' : ''}}"><a href="{{route('getFtmOa')}}"><i class="ti-map-alt"></i> <span>FTM</span></a></li> --}}
