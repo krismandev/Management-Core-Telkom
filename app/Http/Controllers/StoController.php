@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Feeder;
+use App\FtmOa;
 use App\Sto;
 use Illuminate\Http\Request;
 
@@ -67,7 +68,8 @@ class StoController extends Controller
     public function showSTO($id)
     {
         $sto = Sto::find($id);
+        $ftm_oas = FtmOa::where('sto_id',$sto->id)->get();
         $feeders = Feeder::where("sto_id",$id)->get();
-        return view("sto.showSto",compact(["sto","feeders"]));
+        return view("sto.showSto",compact(["sto","feeders","ftm_oas"]));
     }
 }

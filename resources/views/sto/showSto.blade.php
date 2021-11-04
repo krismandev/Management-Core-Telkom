@@ -32,6 +32,9 @@
                 </div>
                 <div class="card-body">
                     <h4 class="header-title">Feeder  STO {{$sto->nama_sto}}</h4>
+                    <div class="text-right">
+                        <button class="btn btn-primary add-feeder" data-toggle="modal" data-target="#tambahfeeder" data-sto_id="{{$sto->id}}">Tambah Feeder</button>
+                    </div>
                     <div class="single-table mt-3">
                         <div class="table-responsive">
                             <table class="table" id="data_feeders_reguler">
@@ -106,7 +109,6 @@
                                 <input type="text" name="nama_feeder" value="" class="form-control">
                             </div>
                         </div>
-
                         <div class="row form-group">
                             <div class="col-md-12">
                                 <span>Rak FTM</span>
@@ -114,11 +116,9 @@
                             <div class="col-md-12">
                                 <select name="ftm_oa_id" id="" class="form-control" required>
                                     <option value="">Pilih Rak FTM-OA</option>
-                                    @if(isset($sto_selected))
                                         @foreach ($ftm_oas as $ftom_oa)
                                             <option value="{{$ftom_oa->id}}">{{$ftom_oa->nama_ftm}}</option>
                                         @endforeach
-                                    @endif
                                 </select>
                             </div>
                         </div>
