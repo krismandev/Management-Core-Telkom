@@ -1,8 +1,9 @@
 @extends('layouts2.master')
 @section('title','ODC')
 @section('breadcrumb')
-    <li> <a href="{{route("getOdc")}}">ODC</a> </li>
-    <li><span>{{$odc->nama_odc}}</span></li>
+    <li> <a href="{{route('showSTO',$odc->feeder->sto->id)}}">{{$odc->feeder->sto->nama_sto}}</a> </li>
+    <li><a href="{{route("showFeeder",$odc->feeder->id)}}">{{$odc->feeder->nama_feeder}}</a> </li>
+    <li><span>{{$odc->nama_odc}}</span> </li>
 @endsection
 @section('content')
 <div class="col-lg-12 mt-2">
@@ -11,7 +12,6 @@
             <h2>{{$odc->nama_odc}}</h2>
             <div class="row">
                 Note: <br>
-
             </div>
             <div class="pull-left" style="margin-left: 20px;">
                 <button class="btn btn-secondary" style="margin-right:5px;"></button>Belum ter-assign ke ODC
@@ -24,7 +24,6 @@
             <h4 class="header-title">Core</h4>
             <div class="row mt-2">
                 @foreach ($cores as $core)
-
                     <div class="col-lg-3 mt-3">
                         <span>{{$core->no_core_feeder}}</span>
                         @if($core->odc_id == null)

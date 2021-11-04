@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Feeder;
 use App\Sto;
 use Illuminate\Http\Request;
 
@@ -21,6 +22,7 @@ class StoController extends Controller
 
     public function storeSTO(Request $request)
     {
+
         $request->validate([
             'nama_sto' => 'required',
             'alamat' => 'required'
@@ -60,5 +62,12 @@ class StoController extends Controller
     public function testSto($id)
     {
         return view('coresodc');
+    }
+
+    public function showSTO($id)
+    {
+        $sto = Sto::find($id);
+        $feeders = Feeder::where("sto_id",$id)->get();
+        return view("sto.showSto",compact(["sto","feeders"]));
     }
 }

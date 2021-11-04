@@ -22,12 +22,12 @@ Route::get('/logout','AuthController@logout')->name('logout');
 
 Route::group(['middleware' => ['auth','checkRole:1,2'],'prefix' => 'dashboard'], function(){
     Route::get('/','HomeController@index')->name('index');
-
     Route::group(['prefix'=>'sto'],function(){
         Route::get('/','StoController@getSTO')->name('getSTO');
         Route::post('/','StoController@storeSTO')->name('storeSTO');
         Route::patch('/','StoController@updateSTO')->name('updateSTO');
         Route::get('/delete/{id}','StoController@deleteSTO')->name('deleteSTO');
+        Route::get('/{id}','StoController@showSto')->name('showSTO');
         // Route::get('/{id}','StoController@testSto')->name('testSto');
 
 
@@ -41,11 +41,9 @@ Route::group(['middleware' => ['auth','checkRole:1,2'],'prefix' => 'dashboard'],
             Route::get('/{sto_id}','FtmOaController@getFtmOa')->name('getFtmOa');
             Route::post('/{sto_id}','FtmOaController@storeFtmOa')->name('storeFtmOa');
             Route::patch('/{sto_id}','FtmOaController@updateFtmOa')->name('updateFtmOa');
-
             Route::group(['prefix'=>'panel'],function(){
                 Route::get('/{sto_id}/{ftm_oa_id}','PanelFtmOaController@getPanelFtmOa')->name('getPanelFtmOa');
             });
-
         });
 
     });

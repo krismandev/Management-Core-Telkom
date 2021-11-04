@@ -1,7 +1,7 @@
 @extends('layouts2.master')
 @section('title','Feeder')
 @section('breadcrumb')
-    <li><span>Feeder</span></li>
+    <li><a href="{{route('showSTO',$feeder->sto->id)}}">{{$feeder->sto->nama_sto}}</a></li>
     <li><span>{{$feeder->nama_feeder}}</span></li>
 @endsection
 @section('content')
@@ -140,6 +140,59 @@
                     </div>
 
                 @endforeach
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-12 mt-5">
+    <div class="card">
+        <div class="card-body">
+
+            <h4 class="header-title">Data ODC - {{$feeder->nama_feeder}}</h4>
+
+            <div class="text-right">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#tambahodc">Tambah</button>
+                <div class="pull-right">
+
+                </div>
+            </div>
+            <div class="single-table mt-3">
+                <div class="table-responsive">
+                    <table class="table" id="data_odcs_reguler">
+                        <thead class="text-uppercase bg-dark">
+                        <tr class="text-white text-center">
+                            <th scope="col">#</th>
+                            <th scope="col"> Nama ODC</th>
+                            <th scope="col"> Feeder</th>
+                            <th scope="col">Start Core</th>
+                            <th scope="col">End Core</th>
+                            <th scope="col">Long</th>
+                            <th scope="col">Lat</th>
+                            <th scope="col">Aksi</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        @foreach ($odcs as $odc)
+                            <tr class="text-center">
+                                <th scope="row">{{$loop->iteration}}</th>
+                                <td>{{$odc->nama_odc}}</td>
+                                <td>{{$odc->nama_feeder}}</td>
+                                <td>{{$odc->start_core}}</td>
+                                <td>{{$odc->end_core}}</td>
+                                <td>{{$odc->long}}</td>
+                                <td>{{$odc->lat}}</td>
+                                <td>
+                                    <a href="#" class="btn btn-warning edit-odc" data-toggle="modal" data-target="#editodc" data-odc_id="{{$odc->id}}" data-nama_odc="{{$odc->nama_odc}}" data-alamat="{{$odc->alamat}}" data-long="{{$odc->long}}" data-lat="{{$odc->lat}}">Edit</a>
+                                    {{-- <a href="#" class="btn btn-danger hapus-odc" data-odc_id="{{$odc->id}}">Hapus</a> --}}
+                                    <a href="{{route('showOdc',$odc->id)}}" class="btn btn-primary">Buka</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -695,7 +748,158 @@
     </div>
 </div>
 
+<div class="modal fade" id="tambahodc" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalScrollableTitle"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form class="" action="{{route('storeOdc')}}" method="post" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-body">
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <span>Nama ODC</span>
+                        </div>
+                        <div class="col-md-12">
+                            <input type="text" name="nama_odc" value="{{old('nama_odc')}}" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <span>Start Core</span>
+                        </div>
+                        <div class="col-md-12">
+                            <input type="number" name="start_core" value="{{old('start_core')}}" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <span>End Core</span>
+                        </div>
+                        <div class="col-md-12">
+                            <input type="number" name="end_core" value="{{old('end_core')}}" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <span>Feeder</span>
+                        </div>
+                        <div class="col-md-12">
+                            <select name="feeder_id" id="" class="form-control" required>
+                                <option value="">Pilih Feeder</option>
+                                @foreach ($feeders as $feeder)
+                                    <option value="{{$feeder->id}}">{{$feeder->nama_feeder}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <span>Kapasitas</span>
+                        </div>
+                        <div class="col-md-12">
+                            <input type="number" name="kapasitas"  value="{{old('kapasitas')}}" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <span>Long</span>
+                        </div>
+                        <div class="col-md-12">
+                            <input type="text" name="long" value="{{old('long')}}" class="form-control" onkeypress="return isNumberKey(event)">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <span>Lat</span>
+                        </div>
+                        <div class="col-md-12">
+                            <input type="text" name="lat" value="{{old('lat')}}" class="form-control" onkeypress="return isNumberKey(event)">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <span>Alamat</span>
+                        </div>
+                        <div class="col-md-12">
+                            <textarea class="form-control" rows="4" name="alamat">{{old('alamat')}}</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editodc" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalScrollableTitle"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form class="" action="{{route('updateOdc')}}" method="post" enctype="multipart/form-data">
+                @csrf @method('PATCH')
+                <div class="modal-body">
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <span>Nama odc</span>
+                        </div>
+                        <div class="col-md-12">
+                            <input type="hidden" id="edit_odc_id" name="odc_id">
+                            <input type="text" name="nama_odc" id="edit_nama_odc" value="" class="form-control" placeholder="Masukkan nama odc Edit">
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <span>Alamat</span>
+                        </div>
+                        <div class="col-md-12">
+                            <textarea class="form-control" rows="4" name="alamat" id="edit_alamat"></textarea>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <span>Long</span>
+                        </div>
+                        <div class="col-md-12">
+                            <input type="text" name="long" id="edit_long" value="" class="form-control" onkeypress="return isNumberKey(event)">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <span>Lat</span>
+                        </div>
+                        <div class="col-md-12">
+                            <input type="text" name="lat" id="edit_lat" value="" class="form-control" onkeypress="return isNumberKey(event)">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 @section('linkfooter')
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <script>
 
     function isNumberKey(evt){
@@ -716,6 +920,25 @@
     }
 
     $(document).ready(function () {
+
+        $('#data_odcs_reguler').DataTable();
+        $(".edit-odc").click(function (e) {
+            e.preventDefault();
+            const odc_id = $(this).data('odc_id')
+            const nama_odc = $(this).data('nama_odc')
+            const alamat = $(this).data('alamat')
+            const long = $(this).data('long')
+            const lat = $(this).data('lat')
+
+            // alert(long)
+
+            $("#edit_odc_id").val(odc_id);
+            $("#edit_nama_odc").val(nama_odc);
+            $("#edit_alamat").html(alamat);
+            $("#edit_long").val(long);
+            $("#edit_lat").val(lat);
+        });
+
         $(".belum-tercatu").click(function (e) {
             alert("Belum tercatu ke ODC");
         })

@@ -12,8 +12,8 @@
                     <li class="{{(request()->is('dashboard/sto*')) ? 'active' : ''}}"><a href="{{route('getSTO')}}"><i class="ti-map-alt"></i> <span>STO</span></a></li>
                     {{-- <li class="{{(request()->is('dashboard/sto/olt*')) ? 'active' : ''}}"><a href="{{route('getAllOlt')}}"><i class="ti-map-alt"></i> <span>OLT</span></a></li> --}}
                     {{-- <li class="{{(request()->is('dashboard/ftm*')) ? 'active' : ''}}"><a href="{{route('getFtmOa')}}"><i class="ti-map-alt"></i> <span>FTM</span></a></li> --}}
-                    <li class="{{(request()->is('dashboard/feeder*')) ? 'active' : ''}}"><a href="{{route('getFeeder')}}"><i class="ti-map-alt"></i> <span>Feeder</span></a></li>
-                    <li class="{{(request()->is('dashboard/odc*')) ? 'active' : ''}}"><a href="{{route('getOdc')}}"><i class="ti-map-alt"></i> <span>ODC</span></a></li>
+{{--                    <li class="{{(request()->is('dashboard/feeder*')) ? 'active' : ''}}"><a href="{{route('getFeeder')}}"><i class="ti-map-alt"></i> <span>Feeder</span></a></li>--}}
+{{--                    <li class="{{(request()->is('dashboard/odc*')) ? 'active' : ''}}"><a href="{{route('getOdc')}}"><i class="ti-map-alt"></i> <span>ODC</span></a></li>--}}
                 </ul>
             </nav>
         </div>
